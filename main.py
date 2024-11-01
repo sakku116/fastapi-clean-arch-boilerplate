@@ -1,12 +1,12 @@
-from dotenv import find_dotenv, load_dotenv, dotenv_values
+from dotenv import dotenv_values, find_dotenv, load_dotenv
 
 load_dotenv(find_dotenv(), override=True)
 
 import logging
-from contextlib import asynccontextmanager
-from datetime import datetime
-from dataclasses import asdict
 import sys
+from contextlib import asynccontextmanager
+from dataclasses import asdict
+from datetime import datetime
 
 import requests
 import uvicorn
@@ -15,12 +15,12 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from pytz import timezone
 from uvicorn.config import LOGGING_CONFIG
-from core import middlewares
 
 from config.env import Env
+from core import middlewares
 from core.exceptions import handlers as exception_handlers
 from core.exceptions.http import CustomHttpException
-from core.logging import setupLogger, logger
+from core.logging import logger, setupLogger
 
 requests.packages.urllib3.disable_warnings()
 
