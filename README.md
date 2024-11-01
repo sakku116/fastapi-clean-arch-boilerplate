@@ -1,3 +1,0 @@
-# Posit Backend
-
-UNDER DEVELOPMENT
