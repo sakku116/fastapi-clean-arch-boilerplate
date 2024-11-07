@@ -33,7 +33,13 @@ class CustomHttpException(Exception):
 
         msg = f"{message}"
         if detail:
-            msg += f"\n{detail}"
+            msg = f"\nmsg: {message}\ndetail: {detail}"
+
         if context:
-            msg += f" | {context}"
+            if not detail:
+                msg += f" | {context}"
+            else:
+                msg += f"\ncontext: {context}"
+
         super().__init__(msg)
+
