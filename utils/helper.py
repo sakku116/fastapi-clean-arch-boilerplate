@@ -1,6 +1,7 @@
 import time
 import json
 from uuid import uuid4
+from datetime import datetime
 
 
 def parseBool(source: any) -> bool:
@@ -14,7 +15,7 @@ def generateSkip(page: int, limit: int) -> int:
 
 
 def timeNowEpoch() -> int:
-    return time.time()
+    return int(datetime.utcnow().timestamp())
 
 
 def prettyJson(data: any) -> str:
