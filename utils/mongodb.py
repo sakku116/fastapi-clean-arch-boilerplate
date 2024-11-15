@@ -1,8 +1,6 @@
 from pymongo.database import Database
-
 import os
 import inspect
-from utils import helper
 from domain.model.base_model import MyBaseModel
 
 from core.logging import logger
@@ -27,10 +25,9 @@ def ensureIndexes(db: Database):
                     and member_name.lower().endswith("model")
                     and member_name != "BaseModel"  # exclude pydantic.BaseModel
                 ):
-                    member: MyBaseModel = member()
                     try:
-                        coll_name = member._coll_name
-                        indexes = member._indexes
+                        coll_name = member.getCollName()
+                        indexes = member.getDefaultIndexes() + member.getCustomIndexes()
                         logger.info(f"\tEnsuring index for '{coll_name}' collection")
                         existing_indexes = list(db[coll_name].list_indexes())
                         for index in indexes:
