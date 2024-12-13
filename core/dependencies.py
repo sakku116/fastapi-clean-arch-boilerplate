@@ -10,9 +10,10 @@ def formOrJson(model: Type[_TModel]) -> _TModel:
         type_ = request.headers["Content-Type"].split(";", 1)[0]
         if type_ == "application/json":
             data = await request.json()
-        elif type_ == "multipart/form-data":
+        elif type_ == "multipart/form-data" or type_ == "application/x-www-form-urlencoded":
             data = await request.form()
         else:
             raise CustomHttpException(status_code=415, message="Unsupported Media Type")
         return model.model_validate(data)
+
     return Depends(formOrJsonInner)
