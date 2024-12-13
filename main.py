@@ -2,6 +2,13 @@ from dotenv import dotenv_values, find_dotenv, load_dotenv
 
 load_dotenv(find_dotenv(), override=True)
 
+from core.logging import setupLogger
+
+# setup custom logger
+setupLogger()
+
+from core.logging import logger
+
 import logging
 import sys
 from contextlib import asynccontextmanager
@@ -20,7 +27,6 @@ from config.env import Env
 from core import middlewares
 from core.exceptions import handlers as exception_handlers
 from core.exceptions.http import CustomHttpException
-from core.logging import logger, setupLogger
 
 requests.packages.urllib3.disable_warnings()
 
@@ -33,9 +39,6 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s: 92m%(message)s",
     datefmt="%d-%m-%Y %H:%M:%S",
 )
-
-# setup custom logger
-setupLogger()
 
 # default uvicorn logging format
 LOGGING_CONFIG["formatters"]["default"][
